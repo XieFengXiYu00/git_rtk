@@ -1,0 +1,37 @@
+2018.12.24 串口TE RE标志位失能操作无效？ 
+2018.12.24 串口的接收发送与上位机接收发送搞反了。
+
+
+2018.12.25 APB与AHB区别，系统时钟？
+2018.12.26 RCC_AHB1ENR与RCC_APB1ENR寄存器操作，PORT时钟与F1不同；Sys_Clock_Set函数 Fclk Hclk Pclk
+
+
+2018.12.25 串口DMA接收不添加SCB_CleanInvalidateDCache()，导致数据更新异常？？
+2018.12.26 通过DMA直接写数据到SRAM中，Cache并没有更新；该函数可以invalidate 相应的 cache-line，这样当 CPU 在读取时，会忽略 D-cache 中的内容，去真实的物理地址读取对应的数据。使用InvalidateDCache()也行，只是少了一个判断cache-line是否为“dirty”。DMA读SRAM需开启Cache的WB（初始化已开启）。 
+
+
+2018.12.25 FATFS文件系统的移植，SD卡读写？？？
+2019.01.03 注意SD卡的LOCK开关，但之后并不会使用这种，没有明确硬件性能；
+
+
+2019.01.03 引申问题如何使用内存管理么？字节对齐？FLASH使用？
+2019.01.05 
+https://blog.csdn.net/shenghuaday/article/details/78877949 code，RO-data,RW-data,ZI-data含义及mcu的flash实际存储数据
+https://blog.csdn.net/21aspnet/article/details/6729724 
+
+
+2019.01.04 STM32F7系统架构？？？想办法搞懂各种总线？
+初步了解 暂停。
+
+
+2019.01.11 IAP功能添加？？？keil中DEBUG的logic analyzer功能？
+2019.01.15 IAP初步实现，出现死机现象，暂停。
+
+2019.02.14 BootLoader与APP切换功能
+2019.02.14 1.keil中LOAD可能没有清除全部FLASH；
+	   2.两次BOOT与APP切换后，出现死机
+
+2019.02.20 1.IAP与APP切换功能实现
+	   2.出现死机是因为IAP的APP更新时STMFLASH_Write()函数进行FLASH的扇区擦除时
+	     擦除了该扇区的IAP代码部分
+	   3.标志位失能 USART1->CR1&=0<<2;
